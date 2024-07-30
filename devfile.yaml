@@ -1,18 +1,32 @@
 schemaVersion: 2.3.0
 metadata:
-  name: import-projects
+  name: import-config-for-user
   version: 2.0.0
-projects:
-  - name: frontend
-    git:
-      remotes:
-        origin: 'https://github.com/redhat-developer-demos/node.js-REST-API-openshift-example.git'
-  - name: backend
-    git:
-      remotes:
-        origin: 'https://github.com/redhat-developer-demos/spring-petclinic.git'
-  - name: angular
-    git:
-      remotes:
-        origin: 'https://github.com/redhat-developer-demos/Angular-openshift-example.git'
-       
+components:
+  - name: deploy-settings
+    openshift:
+      inlined: 
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: user-settings-xml
+        data:
+          settings.xml: |
+            <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+              <localRepository>/home/user/.m2/repository</localRepository>
+              <interactiveMode>true</interactiveMode>
+              <offline>false</offline>
+            </settings>
+  - name: tools
+    container:
+      image: quay.io/eclipse/che-java11-maven:latest
+      memoryLimit: 2Gi
+      mountSources: true
+      volumeMounts:
+        - name: my-config-volume
+          path:  /home/user/.m2
+
+  - name: my-config-volume
+    volume:
+      configMap:
+        name: user-settings-xml

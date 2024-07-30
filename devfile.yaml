@@ -17,16 +17,3 @@ components:
               <interactiveMode>true</interactiveMode>
               <offline>false</offline>
             </settings>
-  - name: tools
-    container:
-      image: quay.io/eclipse/che-java11-maven:latest
-      memoryLimit: 2Gi
-      mountSources: true
-      volumeMounts:
-        - name: my-config-volume
-          path:  /home/user/.m2
-
-  - name: my-config-volume
-    volume:
-      configMap:
-        name: user-settings-xml

@@ -9,14 +9,9 @@ projects:
 components:
   - name: tools
     container:
-      image: quay.io/devfile/golang:latest
+      image: quay.io/eclipse/che-java11-maven:latest
       memoryLimit: 512Mi
       mountSources: true
-      env:
-        - name: gopath
-          value: $(PROJECTS_ROOT)/go
-        - name: gocache
-          value: /tmp/go-cache
       endpoints:
         - name: web
           targetPort: 8080

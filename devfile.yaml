@@ -12,7 +12,6 @@ components:
       image: quay.io/devfile/golang:latest
       memoryLimit: 512Mi
       mountSources: true
-      command: ['sleep', 'infinity']
       env:
         - name: gopath
           value: $(PROJECTS_ROOT)/go
@@ -22,3 +21,5 @@ components:
         - name: web
           targetPort: 8080
           exposure: public
+          path: web
+          secure: true

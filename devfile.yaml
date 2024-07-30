@@ -19,5 +19,5 @@ components:
         - name: web
           targetPort: 8080
           exposure: public
-          path: web
-          secure: true
+          path: https://web-devspaces.com:8080
+          secure: false

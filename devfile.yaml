@@ -9,7 +9,7 @@ projects:
 components:
   - name: tools
     container:
-      image: quay.io/eclipse/che-java11-maven:latest
+      image: eclipse/maven-jdk8:latest
       memoryLimit: 2Gi
       mountSources: true
       endpoints:
